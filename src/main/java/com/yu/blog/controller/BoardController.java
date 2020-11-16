@@ -1,0 +1,43 @@
+package com.yu.blog.controller;
+
+import com.yu.blog.service.BoardService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@Controller // html(여기서는 jsp)를 리턴
+public class BoardController {
+
+    @Autowired
+    private BoardService boardService;
+
+    @GetMapping({"","/"}) // 아무것도 안 붙이거나 / 붙이면 메인 페이지
+    public String index(Model model, @PageableDefault(size=3, sort="id", direction= Sort.Direction.DESC)Pageable pageable) {
+        model.addAttribute("boards", boardService.글목록(pageable));
+        return "index"; // viewResolver가 작동하면서 정보를 넘길 수 있다.
+    }
+
+    @GetMapping("/board/{id}")
+    public String findById(@PathVariable int id, Model model){
+        model.addAttribute("board", boardService.글상세보기(id));
+        return "board/detail";
+    }
+
+    @GetMapping("/board/{id}/updateForm")
+    public String updateForm(@PathVariable int id, Model model){
+        model.addAttribute("board", boardService.글상세보기(id)); // 상세보기에서 가져온 정보를 그대로 사용
+        return "board/updateForm";
+    }
+
+
+    // USER 권한이 필요함
+    @GetMapping("/board/saveForm")
+    public String saveForm(){
+        return "board/saveForm";
+    }
+}

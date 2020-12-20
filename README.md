@@ -11,7 +11,7 @@
 2. Spring-security
 3. DB : mysql
 
-## 3) DB 구조
+## 3) 데이터베이스 구조
 
 1. User - Board ( 1: N )
 2. User - Reply ( 1 : N )
@@ -34,7 +34,7 @@
 [7. 댓글 구현](https://www.notion.so/7-87d97ed57e27427ca204348a6e0219ce)
 <br/>
 
-## 5) 스크린샷
+## 5) 구현 화면
 
 ### 1. 메인 페이지
 
